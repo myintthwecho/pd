@@ -1,0 +1,172 @@
+{
+  "generated_at": "2026-10-27T03:59:34.067Z",
+  "node": "v26.7.0",
+  "policy": {
+    "confidence_min": 0.55,
+    "high_value_threshold": 500,
+    "fraud_signal_min": 0.8,
+    "timeout_ms": 4000
+  },
+  "scenarios": [
+    {
+      "scenario": "model auto-approves a low-risk claim",
+      "result": {
+        "request_id": "T1",
+        "decision": "INSTANT_AUTO_APPROVE",
+        "model_decision": "INSTANT_AUTO_APPROVE",
+        "confidence": 0.92,
+        "probabilities": {
+          "INSTANT_AUTO_APPROVE": 0.9,
+          "MANUAL_INSPECTION_REQUIRED": 0.04999999999999999,
+          "FRAUD_RISK_FLAG": 0.04999999999999999
+        },
+        "fraud_signal": 0.03,
+        "fallback_used": false,
+        "fallback_reason": null,
+        "model": "typesafe/jev-1.13"
+      }
+    },
+    {
+      "scenario": "high-value override on a $2400 claim",
+      "result": {
+        "request_id": "T4",
+        "decision": "MANUAL_INSPECTION_REQUIRED",
+        "model_decision": "INSTANT_AUTO_APPROVE",
+        "confidence": 0.95,
+        "probabilities": {
+          "INSTANT_AUTO_APPROVE": 0.9,
+          "MANUAL_INSPECTION_REQUIRED": 0.04999999999999999,
+          "FRAUD_RISK_FLAG": 0.04999999999999999
+        },
+        "fraud_signal": 0.05,
+        "fallback_used": true,
+        "fallback_reason": "HIGH_VALUE_OVERRIDE",
+        "model": "typesafe/jev-1.13"
+      }
+    },
+    {
+      "scenario": "fraud-signal override on an auto-approval",
+      "result": {
+        "request_id": "T2",
+        "decision": "MANUAL_INSPECTION_REQUIRED",
+        "model_decision": "INSTANT_AUTO_APPROVE",
+        "confidence": 0.8,
+        "probabilities": {
+          "INSTANT_AUTO_APPROVE": 0.9,
+          "MANUAL_INSPECTION_REQUIRED": 0.04999999999999999,
+          "FRAUD_RISK_FLAG": 0.04999999999999999
+        },
+        "fraud_signal": 0.92,
+        "fallback_used": true,
+        "fallback_reason": "FRAUD_SIGNAL_OVERRIDE",
+        "model": "typesafe/jev-1.13"
+      }
+    },
+    {
+      "scenario": "model flags fraud",
+      "result": {
+        "request_id": "T5",
+        "decision": "FRAUD_RISK_FLAG",
+        "model_decision": "FRAUD_RISK_FLAG",
+        "confidence": 0.93,
+        "probabilities": {
+          "INSTANT_AUTO_APPROVE": 0.04999999999999999,
+          "MANUAL_INSPECTION_REQUIRED": 0.04999999999999999,
+          "FRAUD_RISK_FLAG": 0.9
+        },
+        "fraud_signal": 0.96,
+        "fallback_used": false,
+        "fallback_reason": null,
+        "model": "typesafe/jev-1.13"
+      }
+    },
+    {
+      "scenario": "low confidence auto-approval",
+      "result": {
+        "request_id": "T1",
+        "decision": "MANUAL_INSPECTION_REQUIRED",
+        "model_decision": "INSTANT_AUTO_APPROVE",
+        "confidence": 0.5,
+        "probabilities": {
+          "INSTANT_AUTO_APPROVE": 0.5,
+          "MANUAL_INSPECTION_REQUIRED": 0.25,
+          "FRAUD_RISK_FLAG": 0.25
+        },
+        "fraud_signal": 0.05,
+        "fallback_used": true,
+        "fallback_reason": "LOW_CONFIDENCE",
+        "model": "typesafe/jev-1.13"
+      }
+    },
+    {
+      "scenario": "invalid output (unknown choice)",
+      "result": {
+        "request_id": "T1",
+        "decision": "MANUAL_INSPECTION_REQUIRED",
+        "model_decision": null,
+        "confidence": 0,
+        "probabilities": {},
+        "fraud_signal": null,
+        "fallback_used": true,
+        "fallback_reason": "INVALID_OUTPUT",
+        "model": "typesafe/jev-1.13"
+      }
+    },
+    {
+      "scenario": "timeout",
+      "result": {
+        "request_id": "T1",
+        "decision": "MANUAL_INSPECTION_REQUIRED",
+        "model_decision": null,
+        "confidence": 0,
+        "probabilities": {},
+        "fraud_signal": null,
+        "fallback_used": true,
+        "fallback_reason": "TIMEOUT",
+        "model": "typesafe/jev-1.13"
+      }
+    },
+    {
+      "scenario": "service unavailable",
+      "result": {
+        "request_id": "T1",
+        "decision": "MANUAL_INSPECTION_REQUIRED",
+        "model_decision": null,
+        "confidence": 0,
+        "probabilities": {},
+        "fraud_signal": null,
+        "fallback_used": true,
+        "fallback_reason": "SERVICE_UNAVAILABLE",
+        "model": "typesafe/jev-1.13"
+      }
+    },
+    {
+      "scenario": "malformed JSON response",
+      "result": {
+        "request_id": "T1",
+        "decision": "MANUAL_INSPECTION_REQUIRED",
+        "model_decision": null,
+        "confidence": 0,
+        "probabilities": {},
+        "fraud_signal": null,
+        "fallback_used": true,
+        "fallback_reason": "MALFORMED_RESPONSE",
+        "model": "typesafe/jev-1.13"
+      }
+    },
+    {
+      "scenario": "invalid input rejected before the model call",
+      "result": {
+        "request_id": "T1",
+        "decision": "MANUAL_INSPECTION_REQUIRED",
+        "model_decision": null,
+        "confidence": 0,
+        "probabilities": {},
+        "fraud_signal": null,
+        "fallback_used": true,
+        "fallback_reason": "INVALID_INPUT",
+        "model": "typesafe/jev-1.13"
+      }
+    }
+  ]
+}

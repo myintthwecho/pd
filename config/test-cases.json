@@ -1,0 +1,94 @@
+{
+  "cases": [
+    {
+      "id": "T1",
+      "scenario": "Damaged on arrival, low value, first refund, photo evidence",
+      "expected": "INSTANT_AUTO_APPROVE",
+      "request": {
+        "request_id": "T1",
+        "order_id": "ORD-1001",
+        "order_value": 48,
+        "currency": "USD",
+        "days_since_delivery": 2,
+        "prior_refund_count_30d": 0,
+        "claim_reason": "damaged_on_arrival",
+        "claim_text": "The ceramic mug arrived in pieces. The box was crushed on one side and there is a photo of the damage attached to the ticket. I would like a refund for this order."
+      }
+    },
+    {
+      "id": "T2",
+      "scenario": "Non-delivery, 21 days, tracking stalled, low value",
+      "expected": "INSTANT_AUTO_APPROVE",
+      "request": {
+        "request_id": "T2",
+        "order_id": "ORD-1002",
+        "order_value": 65,
+        "currency": "USD",
+        "days_since_delivery": null,
+        "prior_refund_count_30d": 0,
+        "claim_reason": "not_delivered",
+        "claim_text": "The tracking page has not moved for 21 days and the carrier says the parcel is delayed. The order never arrived and I still need it. Please refund me so I can order again."
+      }
+    },
+    {
+      "id": "T3",
+      "scenario": "Change of mind, used item, past normal return window",
+      "expected": "MANUAL_INSPECTION_REQUIRED",
+      "request": {
+        "request_id": "T3",
+        "order_id": "ORD-1003",
+        "order_value": 120,
+        "currency": "USD",
+        "days_since_delivery": 40,
+        "prior_refund_count_30d": 0,
+        "claim_reason": "changed_mind",
+        "claim_text": "I bought these shoes last month and wore them twice. They are fine but I changed my mind and would prefer the money back. Can I return them?"
+      }
+    },
+    {
+      "id": "T4",
+      "scenario": "High-value custom item, not as described",
+      "expected": "MANUAL_INSPECTION_REQUIRED",
+      "request": {
+        "request_id": "T4",
+        "order_id": "ORD-1004",
+        "order_value": 2400,
+        "currency": "USD",
+        "days_since_delivery": 5,
+        "prior_refund_count_30d": 0,
+        "claim_reason": "not_as_described",
+        "claim_text": "The custom sofa does not match the fabric sample I approved. The colour is much darker and the stitching is uneven. For this price I expected the agreed specification, so I want a full refund."
+      }
+    },
+    {
+      "id": "T5",
+      "scenario": "Repeated refunds, tracking shows delivered, dispute threat",
+      "expected": "FRAUD_RISK_FLAG",
+      "request": {
+        "request_id": "T5",
+        "order_id": "ORD-1005",
+        "order_value": 89,
+        "currency": "USD",
+        "days_since_delivery": 6,
+        "prior_refund_count_30d": 4,
+        "claim_reason": "not_delivered",
+        "claim_text": "This is my fourth refund request this month. The tracking says the parcel was delivered and signed for, but I never received it. I want the money back immediately or I will dispute the charge."
+      }
+    },
+    {
+      "id": "T6",
+      "scenario": "Abusive language, no evidence, prior refunds",
+      "expected": "MANUAL_INSPECTION_REQUIRED",
+      "request": {
+        "request_id": "T6",
+        "order_id": "ORD-1006",
+        "order_value": 310,
+        "currency": "USD",
+        "days_since_delivery": 14,
+        "prior_refund_count_30d": 2,
+        "claim_reason": "other",
+        "claim_text": "I am not giving you any more details. You people are useless and I am not waiting any longer. Refund me now or I will keep complaining everywhere."
+      }
+    }
+  ]
+}

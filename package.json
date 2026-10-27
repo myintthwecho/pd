@@ -1,0 +1,16 @@
+{
+  "name": "a6-refund-risk-classifier",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A6: Refund Request Risk Classifier built on a typed Jev decision",
+  "scripts": {
+    "demo": "node src/fallbackDemo.ts",
+    "test": "node --test test/classifyRefund.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0"
+  }
+}
