@@ -28,6 +28,33 @@ export interface RefundRequest {
   claim_text: string;
 }
 
+export interface PolicyConditions {
+  claim_reasons?: ClaimReason[];
+  keywords?: string[];
+  min_order_value?: number;
+  max_order_value?: number;
+  min_days_since_delivery?: number;
+  max_days_since_delivery?: number;
+  min_prior_refund_count_30d?: number;
+}
+
+export interface PolicyRecord {
+  id: string;
+  title: string;
+  tags: string[];
+  applies_when: PolicyConditions;
+  policy: string;
+}
+
+export interface RetrievedPolicy extends PolicyRecord {
+  score: number;
+  matched: string[];
+}
+
+export interface GroundedRefundRequest extends RefundRequest {
+  policy_context?: RetrievedPolicy[];
+}
+
 export interface JevChoiceAnswer {
   choice: string;
   probabilities: Record<string, number>;

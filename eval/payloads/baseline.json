@@ -1,0 +1,262 @@
+{
+  "version": "baseline",
+  "model": "typesafe/jev-1.13",
+  "cases": {
+    "T01": {
+      "model": "typesafe/jev-1.13",
+      "state": {
+        "request_id": "T01",
+        "order_id": "ORD-1001",
+        "order_value": 48,
+        "currency": "USD",
+        "days_since_delivery": 2,
+        "prior_refund_count_30d": 0,
+        "claim_reason": "damaged_on_arrival",
+        "claim_text": "The ceramic mug arrived in pieces. The box was crushed on one side and there is a photo of the damage attached to the ticket. I would like a refund for this order."
+      },
+      "questions": {
+        "refund_risk": {
+          "type": "choice",
+          "instructions": "Classify the refund request into exactly one risk decision. Prefer MANUAL_INSPECTION_REQUIRED when the claim is ambiguous, incomplete, high value, or lacks verifiable detail. Use FRAUD_RISK_FLAG only when the narrative shows deliberate bad-faith exploitation, such as repeated refunds, contradictory tracking evidence, or threats to dispute a delivered order.",
+          "criteria": {
+            "INSTANT_AUTO_APPROVE": "Genuine, low-risk claim that matches a normal refund policy; a refund can be issued without human review.",
+            "MANUAL_INSPECTION_REQUIRED": "Ambiguous, incomplete, high-value, or otherwise requires a human to inspect evidence before a refund decision.",
+            "FRAUD_RISK_FLAG": "Signals of deliberate bad-faith exploitation of the refund process rather than genuine dissatisfaction."
+          }
+        },
+        "fraud_signal": {
+          "type": "noul",
+          "instructions": "Does the claim show deliberate bad-faith refund exploitation rather than a genuine customer problem?",
+          "criteria": {
+            "false": "No deliberate fraud signal",
+            "true": "Deliberate fraud signal present"
+          }
+        }
+      }
+    },
+    "T02": {
+      "model": "typesafe/jev-1.13",
+      "state": {
+        "request_id": "T02",
+        "order_id": "ORD-2002",
+        "order_value": 32,
+        "currency": "USD",
+        "days_since_delivery": null,
+        "prior_refund_count_30d": 0,
+        "claim_reason": "duplicate_charge",
+        "claim_text": "I was charged twice for the same order. My bank statement shows two identical payments of 32 USD on the same day, but I only received one confirmation email. Please refund the duplicate charge."
+      },
+      "questions": {
+        "refund_risk": {
+          "type": "choice",
+          "instructions": "Classify the refund request into exactly one risk decision. Prefer MANUAL_INSPECTION_REQUIRED when the claim is ambiguous, incomplete, high value, or lacks verifiable detail. Use FRAUD_RISK_FLAG only when the narrative shows deliberate bad-faith exploitation, such as repeated refunds, contradictory tracking evidence, or threats to dispute a delivered order.",
+          "criteria": {
+            "INSTANT_AUTO_APPROVE": "Genuine, low-risk claim that matches a normal refund policy; a refund can be issued without human review.",
+            "MANUAL_INSPECTION_REQUIRED": "Ambiguous, incomplete, high-value, or otherwise requires a human to inspect evidence before a refund decision.",
+            "FRAUD_RISK_FLAG": "Signals of deliberate bad-faith exploitation of the refund process rather than genuine dissatisfaction."
+          }
+        },
+        "fraud_signal": {
+          "type": "noul",
+          "instructions": "Does the claim show deliberate bad-faith refund exploitation rather than a genuine customer problem?",
+          "criteria": {
+            "false": "No deliberate fraud signal",
+            "true": "Deliberate fraud signal present"
+          }
+        }
+      }
+    },
+    "T03": {
+      "model": "typesafe/jev-1.13",
+      "state": {
+        "request_id": "T03",
+        "order_id": "ORD-2003",
+        "order_value": 75,
+        "currency": "USD",
+        "days_since_delivery": 3,
+        "prior_refund_count_30d": 0,
+        "claim_reason": "not_as_described",
+        "claim_text": "The lamp I received is the wrong colour and the base is scratched. I attached two photos and the listing shows a white base, but this one is grey. I would like a refund for this order."
+      },
+      "questions": {
+        "refund_risk": {
+          "type": "choice",
+          "instructions": "Classify the refund request into exactly one risk decision. Prefer MANUAL_INSPECTION_REQUIRED when the claim is ambiguous, incomplete, high value, or lacks verifiable detail. Use FRAUD_RISK_FLAG only when the narrative shows deliberate bad-faith exploitation, such as repeated refunds, contradictory tracking evidence, or threats to dispute a delivered order.",
+          "criteria": {
+            "INSTANT_AUTO_APPROVE": "Genuine, low-risk claim that matches a normal refund policy; a refund can be issued without human review.",
+            "MANUAL_INSPECTION_REQUIRED": "Ambiguous, incomplete, high-value, or otherwise requires a human to inspect evidence before a refund decision.",
+            "FRAUD_RISK_FLAG": "Signals of deliberate bad-faith exploitation of the refund process rather than genuine dissatisfaction."
+          }
+        },
+        "fraud_signal": {
+          "type": "noul",
+          "instructions": "Does the claim show deliberate bad-faith refund exploitation rather than a genuine customer problem?",
+          "criteria": {
+            "false": "No deliberate fraud signal",
+            "true": "Deliberate fraud signal present"
+          }
+        }
+      }
+    },
+    "T04": {
+      "model": "typesafe/jev-1.13",
+      "state": {
+        "request_id": "T04",
+        "order_id": "ORD-1002",
+        "order_value": 65,
+        "currency": "USD",
+        "days_since_delivery": null,
+        "prior_refund_count_30d": 0,
+        "claim_reason": "not_delivered",
+        "claim_text": "The tracking page has not moved for 21 days and the carrier says the parcel is delayed. The order never arrived and I still need it. Please refund me so I can order again."
+      },
+      "questions": {
+        "refund_risk": {
+          "type": "choice",
+          "instructions": "Classify the refund request into exactly one risk decision. Prefer MANUAL_INSPECTION_REQUIRED when the claim is ambiguous, incomplete, high value, or lacks verifiable detail. Use FRAUD_RISK_FLAG only when the narrative shows deliberate bad-faith exploitation, such as repeated refunds, contradictory tracking evidence, or threats to dispute a delivered order.",
+          "criteria": {
+            "INSTANT_AUTO_APPROVE": "Genuine, low-risk claim that matches a normal refund policy; a refund can be issued without human review.",
+            "MANUAL_INSPECTION_REQUIRED": "Ambiguous, incomplete, high-value, or otherwise requires a human to inspect evidence before a refund decision.",
+            "FRAUD_RISK_FLAG": "Signals of deliberate bad-faith exploitation of the refund process rather than genuine dissatisfaction."
+          }
+        },
+        "fraud_signal": {
+          "type": "noul",
+          "instructions": "Does the claim show deliberate bad-faith refund exploitation rather than a genuine customer problem?",
+          "criteria": {
+            "false": "No deliberate fraud signal",
+            "true": "Deliberate fraud signal present"
+          }
+        }
+      }
+    },
+    "T05": {
+      "model": "typesafe/jev-1.13",
+      "state": {
+        "request_id": "T05",
+        "order_id": "ORD-1003",
+        "order_value": 120,
+        "currency": "USD",
+        "days_since_delivery": 40,
+        "prior_refund_count_30d": 0,
+        "claim_reason": "changed_mind",
+        "claim_text": "I bought these shoes last month and wore them twice. They are fine but I changed my mind and would prefer the money back. Can I return them?"
+      },
+      "questions": {
+        "refund_risk": {
+          "type": "choice",
+          "instructions": "Classify the refund request into exactly one risk decision. Prefer MANUAL_INSPECTION_REQUIRED when the claim is ambiguous, incomplete, high value, or lacks verifiable detail. Use FRAUD_RISK_FLAG only when the narrative shows deliberate bad-faith exploitation, such as repeated refunds, contradictory tracking evidence, or threats to dispute a delivered order.",
+          "criteria": {
+            "INSTANT_AUTO_APPROVE": "Genuine, low-risk claim that matches a normal refund policy; a refund can be issued without human review.",
+            "MANUAL_INSPECTION_REQUIRED": "Ambiguous, incomplete, high-value, or otherwise requires a human to inspect evidence before a refund decision.",
+            "FRAUD_RISK_FLAG": "Signals of deliberate bad-faith exploitation of the refund process rather than genuine dissatisfaction."
+          }
+        },
+        "fraud_signal": {
+          "type": "noul",
+          "instructions": "Does the claim show deliberate bad-faith refund exploitation rather than a genuine customer problem?",
+          "criteria": {
+            "false": "No deliberate fraud signal",
+            "true": "Deliberate fraud signal present"
+          }
+        }
+      }
+    },
+    "T06": {
+      "model": "typesafe/jev-1.13",
+      "state": {
+        "request_id": "T06",
+        "order_id": "ORD-1004",
+        "order_value": 2400,
+        "currency": "USD",
+        "days_since_delivery": 5,
+        "prior_refund_count_30d": 0,
+        "claim_reason": "not_as_described",
+        "claim_text": "The custom sofa does not match the fabric sample I approved. The colour is much darker and the stitching is uneven. For this price I expected the agreed specification, so I want a full refund."
+      },
+      "questions": {
+        "refund_risk": {
+          "type": "choice",
+          "instructions": "Classify the refund request into exactly one risk decision. Prefer MANUAL_INSPECTION_REQUIRED when the claim is ambiguous, incomplete, high value, or lacks verifiable detail. Use FRAUD_RISK_FLAG only when the narrative shows deliberate bad-faith exploitation, such as repeated refunds, contradictory tracking evidence, or threats to dispute a delivered order.",
+          "criteria": {
+            "INSTANT_AUTO_APPROVE": "Genuine, low-risk claim that matches a normal refund policy; a refund can be issued without human review.",
+            "MANUAL_INSPECTION_REQUIRED": "Ambiguous, incomplete, high-value, or otherwise requires a human to inspect evidence before a refund decision.",
+            "FRAUD_RISK_FLAG": "Signals of deliberate bad-faith exploitation of the refund process rather than genuine dissatisfaction."
+          }
+        },
+        "fraud_signal": {
+          "type": "noul",
+          "instructions": "Does the claim show deliberate bad-faith refund exploitation rather than a genuine customer problem?",
+          "criteria": {
+            "false": "No deliberate fraud signal",
+            "true": "Deliberate fraud signal present"
+          }
+        }
+      }
+    },
+    "T09": {
+      "model": "typesafe/jev-1.13",
+      "state": {
+        "request_id": "T09",
+        "order_id": "ORD-1005",
+        "order_value": 89,
+        "currency": "USD",
+        "days_since_delivery": 6,
+        "prior_refund_count_30d": 4,
+        "claim_reason": "not_delivered",
+        "claim_text": "This is my fourth refund request this month. The tracking says the parcel was delivered and signed for, but I never received it. I want the money back immediately or I will dispute the charge."
+      },
+      "questions": {
+        "refund_risk": {
+          "type": "choice",
+          "instructions": "Classify the refund request into exactly one risk decision. Prefer MANUAL_INSPECTION_REQUIRED when the claim is ambiguous, incomplete, high value, or lacks verifiable detail. Use FRAUD_RISK_FLAG only when the narrative shows deliberate bad-faith exploitation, such as repeated refunds, contradictory tracking evidence, or threats to dispute a delivered order.",
+          "criteria": {
+            "INSTANT_AUTO_APPROVE": "Genuine, low-risk claim that matches a normal refund policy; a refund can be issued without human review.",
+            "MANUAL_INSPECTION_REQUIRED": "Ambiguous, incomplete, high-value, or otherwise requires a human to inspect evidence before a refund decision.",
+            "FRAUD_RISK_FLAG": "Signals of deliberate bad-faith exploitation of the refund process rather than genuine dissatisfaction."
+          }
+        },
+        "fraud_signal": {
+          "type": "noul",
+          "instructions": "Does the claim show deliberate bad-faith refund exploitation rather than a genuine customer problem?",
+          "criteria": {
+            "false": "No deliberate fraud signal",
+            "true": "Deliberate fraud signal present"
+          }
+        }
+      }
+    },
+    "T10": {
+      "model": "typesafe/jev-1.13",
+      "state": {
+        "request_id": "T10",
+        "order_id": "ORD-1006",
+        "order_value": 310,
+        "currency": "USD",
+        "days_since_delivery": 14,
+        "prior_refund_count_30d": 2,
+        "claim_reason": "other",
+        "claim_text": "I am not giving you any more details. You people are useless and I am not waiting any longer. Refund me now or I will keep complaining everywhere."
+      },
+      "questions": {
+        "refund_risk": {
+          "type": "choice",
+          "instructions": "Classify the refund request into exactly one risk decision. Prefer MANUAL_INSPECTION_REQUIRED when the claim is ambiguous, incomplete, high value, or lacks verifiable detail. Use FRAUD_RISK_FLAG only when the narrative shows deliberate bad-faith exploitation, such as repeated refunds, contradictory tracking evidence, or threats to dispute a delivered order.",
+          "criteria": {
+            "INSTANT_AUTO_APPROVE": "Genuine, low-risk claim that matches a normal refund policy; a refund can be issued without human review.",
+            "MANUAL_INSPECTION_REQUIRED": "Ambiguous, incomplete, high-value, or otherwise requires a human to inspect evidence before a refund decision.",
+            "FRAUD_RISK_FLAG": "Signals of deliberate bad-faith exploitation of the refund process rather than genuine dissatisfaction."
+          }
+        },
+        "fraud_signal": {
+          "type": "noul",
+          "instructions": "Does the claim show deliberate bad-faith refund exploitation rather than a genuine customer problem?",
+          "criteria": {
+            "false": "No deliberate fraud signal",
+            "true": "Deliberate fraud signal present"
+          }
+        }
+      }
+    }
+  }
+}

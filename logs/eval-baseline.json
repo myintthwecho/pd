@@ -1,0 +1,188 @@
+{
+  "version": "baseline",
+  "generated_at": "2026-10-27T07:42:12.230Z",
+  "git_sha": "91f73d1",
+  "config_sha": "143d6d4a591ef998",
+  "cases_total": 10,
+  "cases_completed": 10,
+  "cases_pending": 0,
+  "correct": 7,
+  "accuracy_completed_pct": 70,
+  "accuracy_total_pct": 70,
+  "latency": {
+    "samples": 8,
+    "p50_ms": 467,
+    "p95_ms": 753,
+    "source": "recorded"
+  },
+  "cost_per_task": "N/A",
+  "cost_notes": "The Jev Playground is free. Responses may include token usage, but the Playground does not expose per-request billing, so no cost estimate is reported.",
+  "results": [
+    {
+      "id": "T01",
+      "case_type": "normal",
+      "expected_decision": "INSTANT_AUTO_APPROVE",
+      "actual_decision": "INSTANT_AUTO_APPROVE",
+      "expected_fallback_reason": null,
+      "actual_fallback_reason": null,
+      "pass": true,
+      "fallback_check": true,
+      "status": "pass",
+      "evaluated_by": "recorded_final",
+      "latency_ms": 753,
+      "latency_source": "recorded",
+      "notes": [
+        "Actual A6 Playground output; confidence was not captured."
+      ]
+    },
+    {
+      "id": "T02",
+      "case_type": "normal",
+      "expected_decision": "INSTANT_AUTO_APPROVE",
+      "actual_decision": "MANUAL_INSPECTION_REQUIRED",
+      "expected_fallback_reason": null,
+      "actual_fallback_reason": null,
+      "pass": false,
+      "fallback_check": true,
+      "status": "fail",
+      "evaluated_by": "policy_replay",
+      "latency_ms": 653,
+      "latency_source": "recorded",
+      "notes": [
+        "Baseline Playground T02. The Playground returned q1/q2 and a top-level confidence; raw_playground preserves that exact response. raw maps q1 to refund_risk, q2.probability to fraud_signal.noul, and confidence.q1 to refund_risk.confidence. Screenshot pending at docs/evidence/a7/T02-baseline.png. Usage: 647 input, 77 output tokens."
+      ]
+    },
+    {
+      "id": "T03",
+      "case_type": "normal",
+      "expected_decision": "INSTANT_AUTO_APPROVE",
+      "actual_decision": "MANUAL_INSPECTION_REQUIRED",
+      "expected_fallback_reason": null,
+      "actual_fallback_reason": null,
+      "pass": false,
+      "fallback_check": true,
+      "status": "fail",
+      "evaluated_by": "policy_replay",
+      "latency_ms": 430,
+      "latency_source": "recorded",
+      "notes": [
+        "Baseline Playground T03. The Playground returned q1/q2 and a top-level confidence; raw_playground preserves that exact response. raw maps q1 to refund_risk, q2.probability to fraud_signal.noul, and confidence.q1 to refund_risk.confidence. Screenshot pending at docs/evidence/a7/T03-baseline.png. Usage: 677 input, 77 output tokens."
+      ]
+    },
+    {
+      "id": "T04",
+      "case_type": "edge",
+      "expected_decision": "INSTANT_AUTO_APPROVE",
+      "actual_decision": "MANUAL_INSPECTION_REQUIRED",
+      "expected_fallback_reason": null,
+      "actual_fallback_reason": null,
+      "pass": false,
+      "fallback_check": true,
+      "status": "fail",
+      "evaluated_by": "recorded_final",
+      "latency_ms": 444,
+      "latency_source": "recorded",
+      "notes": [
+        "Actual A6 Playground output; the only A6 mismatch. Confidence was not captured."
+      ]
+    },
+    {
+      "id": "T05",
+      "case_type": "edge",
+      "expected_decision": "MANUAL_INSPECTION_REQUIRED",
+      "actual_decision": "MANUAL_INSPECTION_REQUIRED",
+      "expected_fallback_reason": null,
+      "actual_fallback_reason": null,
+      "pass": true,
+      "fallback_check": true,
+      "status": "pass",
+      "evaluated_by": "recorded_final",
+      "latency_ms": 467,
+      "latency_source": "recorded",
+      "notes": [
+        "Actual A6 Playground output; confidence was not captured."
+      ]
+    },
+    {
+      "id": "T06",
+      "case_type": "edge",
+      "expected_decision": "MANUAL_INSPECTION_REQUIRED",
+      "actual_decision": "MANUAL_INSPECTION_REQUIRED",
+      "expected_fallback_reason": null,
+      "actual_fallback_reason": null,
+      "pass": true,
+      "fallback_check": true,
+      "status": "pass",
+      "evaluated_by": "recorded_final",
+      "latency_ms": 425,
+      "latency_source": "recorded",
+      "notes": [
+        "Actual A6 Playground output; confidence was not captured. The high-value guardrail was available but not needed because the raw choice was already manual."
+      ]
+    },
+    {
+      "id": "T07",
+      "case_type": "fallback",
+      "expected_decision": "MANUAL_INSPECTION_REQUIRED",
+      "actual_decision": "MANUAL_INSPECTION_REQUIRED",
+      "expected_fallback_reason": "INVALID_INPUT",
+      "actual_fallback_reason": "INVALID_INPUT",
+      "pass": true,
+      "fallback_check": true,
+      "status": "pass",
+      "evaluated_by": "deterministic_fallback",
+      "latency_ms": null,
+      "latency_source": "local_replay",
+      "notes": []
+    },
+    {
+      "id": "T08",
+      "case_type": "fallback",
+      "expected_decision": "MANUAL_INSPECTION_REQUIRED",
+      "actual_decision": "MANUAL_INSPECTION_REQUIRED",
+      "expected_fallback_reason": "TIMEOUT",
+      "actual_fallback_reason": "TIMEOUT",
+      "pass": true,
+      "fallback_check": true,
+      "status": "pass",
+      "evaluated_by": "deterministic_fallback",
+      "latency_ms": null,
+      "latency_source": "local_replay",
+      "notes": []
+    },
+    {
+      "id": "T09",
+      "case_type": "difficult",
+      "expected_decision": "FRAUD_RISK_FLAG",
+      "actual_decision": "FRAUD_RISK_FLAG",
+      "expected_fallback_reason": null,
+      "actual_fallback_reason": null,
+      "pass": true,
+      "fallback_check": true,
+      "status": "pass",
+      "evaluated_by": "recorded_final",
+      "latency_ms": 671,
+      "latency_source": "recorded",
+      "notes": [
+        "Actual A6 Playground output; confidence was not captured."
+      ]
+    },
+    {
+      "id": "T10",
+      "case_type": "difficult",
+      "expected_decision": "MANUAL_INSPECTION_REQUIRED",
+      "actual_decision": "MANUAL_INSPECTION_REQUIRED",
+      "expected_fallback_reason": null,
+      "actual_fallback_reason": null,
+      "pass": true,
+      "fallback_check": true,
+      "status": "pass",
+      "evaluated_by": "recorded_final",
+      "latency_ms": 621,
+      "latency_source": "recorded",
+      "notes": [
+        "Actual A6 Playground output; confidence was not captured."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "model": "typesafe/jev-1.13",
+  "state": {
+    "request_id": "T09",
+    "order_id": "ORD-1005",
+    "order_value": 89,
+    "currency": "USD",
+    "days_since_delivery": 6,
+    "prior_refund_count_30d": 4,
+    "claim_reason": "not_delivered",
+    "claim_text": "This is my fourth refund request this month. The tracking says the parcel was delivered and signed for, but I never received it. I want the money back immediately or I will dispute the charge.",
+    "policy_context": [
+      {
+        "id": "POL-NONDELIVERY",
+        "title": "Non-delivery with stalled tracking",
+        "tags": [
+          "not_delivered",
+          "tracking",
+          "low_value"
+        ],
+        "applies_when": {
+          "claim_reasons": [
+            "not_delivered"
+          ],
+          "keywords": [
+            "tracking",
+            "not moved",
+            "never arrived",
+            "delayed",
+            "carrier",
+            "parcel",
+            "not received"
+          ],
+          "max_order_value": 500
+        },
+        "policy": "If the order was not delivered and tracking has not moved for at least 14 days, and the order value is at or below 500, approve the refund without manual review. If tracking shows the parcel was delivered or signed for, do not auto-approve; send the request to manual inspection or fraud review depending on the other signals.",
+        "score": 9,
+        "matched": [
+          "claim_reason:not_delivered",
+          "keyword:tracking",
+          "keyword:parcel",
+          "order_value<=500"
+        ]
+      },
+      {
+        "id": "POL-REPEATED-REFUND",
+        "title": "Repeated refunds and contradictory tracking",
+        "tags": [
+          "fraud",
+          "repeated_refunds",
+          "contradictory_tracking"
+        ],
+        "applies_when": {
+          "keywords": [
+            "refund request",
+            "fourth",
+            "fifth",
+            "tracking says delivered",
+            "signed for",
+            "dispute",
+            "chargeback"
+          ],
+          "min_prior_refund_count_30d": 3
+        },
+        "policy": "Use FRAUD_RISK_FLAG when the narrative shows deliberate bad-faith exploitation: three or more refund requests in 30 days, tracking that contradicts the customer's claim, or a threat to dispute a delivered order. If the signals are weaker or ambiguous, use manual inspection instead.",
+        "score": 6,
+        "matched": [
+          "keyword:refund request",
+          "keyword:fourth",
+          "keyword:signed for",
+          "keyword:dispute",
+          "prior_refund_count_30d>=3"
+        ]
+      }
+    ]
+  },
+  "questions": {
+    "refund_risk": {
+      "type": "choice",
+      "instructions": "Classify the refund request into exactly one risk decision. Prefer MANUAL_INSPECTION_REQUIRED when the claim is ambiguous, incomplete, high value, or lacks verifiable detail. Use FRAUD_RISK_FLAG only when the narrative shows deliberate bad-faith exploitation, such as repeated refunds, contradictory tracking evidence, or threats to dispute a delivered order.",
+      "criteria": {
+        "INSTANT_AUTO_APPROVE": "Genuine, low-risk claim that matches a normal refund policy; a refund can be issued without human review.",
+        "MANUAL_INSPECTION_REQUIRED": "Ambiguous, incomplete, high-value, or otherwise requires a human to inspect evidence before a refund decision.",
+        "FRAUD_RISK_FLAG": "Signals of deliberate bad-faith exploitation of the refund process rather than genuine dissatisfaction."
+      }
+    },
+    "fraud_signal": {
+      "type": "noul",
+      "instructions": "Does the claim show deliberate bad-faith refund exploitation rather than a genuine customer problem?",
+      "criteria": {
+        "false": "No deliberate fraud signal",
+        "true": "Deliberate fraud signal present"
+      }
+    }
+  }
+}

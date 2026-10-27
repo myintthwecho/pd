@@ -1,0 +1,67 @@
+{
+  "model": "typesafe/jev-1.13",
+  "state": {
+    "request_id": "T01",
+    "order_id": "ORD-1001",
+    "order_value": 48,
+    "currency": "USD",
+    "days_since_delivery": 2,
+    "prior_refund_count_30d": 0,
+    "claim_reason": "damaged_on_arrival",
+    "claim_text": "The ceramic mug arrived in pieces. The box was crushed on one side and there is a photo of the damage attached to the ticket. I would like a refund for this order.",
+    "policy_context": [
+      {
+        "id": "POL-DAMAGED",
+        "title": "Damaged on arrival",
+        "tags": [
+          "damaged_on_arrival",
+          "photo_evidence",
+          "low_value"
+        ],
+        "applies_when": {
+          "claim_reasons": [
+            "damaged_on_arrival"
+          ],
+          "keywords": [
+            "damaged",
+            "broken",
+            "crushed",
+            "pieces",
+            "arrived in"
+          ],
+          "max_order_value": 500,
+          "max_days_since_delivery": 30
+        },
+        "policy": "If an item arrived damaged and the customer provides photo evidence, and the order value is at or below 500, approve the refund without manual review. If there is no evidence, or the order value is above 500, send the request to manual inspection.",
+        "score": 12,
+        "matched": [
+          "claim_reason:damaged_on_arrival",
+          "keyword:crushed",
+          "keyword:pieces",
+          "keyword:arrived in",
+          "order_value<=500",
+          "days_since_delivery<=30"
+        ]
+      }
+    ]
+  },
+  "questions": {
+    "refund_risk": {
+      "type": "choice",
+      "instructions": "Classify the refund request into exactly one risk decision. Prefer MANUAL_INSPECTION_REQUIRED when the claim is ambiguous, incomplete, high value, or lacks verifiable detail. Use FRAUD_RISK_FLAG only when the narrative shows deliberate bad-faith exploitation, such as repeated refunds, contradictory tracking evidence, or threats to dispute a delivered order.",
+      "criteria": {
+        "INSTANT_AUTO_APPROVE": "Genuine, low-risk claim that matches a normal refund policy; a refund can be issued without human review.",
+        "MANUAL_INSPECTION_REQUIRED": "Ambiguous, incomplete, high-value, or otherwise requires a human to inspect evidence before a refund decision.",
+        "FRAUD_RISK_FLAG": "Signals of deliberate bad-faith exploitation of the refund process rather than genuine dissatisfaction."
+      }
+    },
+    "fraud_signal": {
+      "type": "noul",
+      "instructions": "Does the claim show deliberate bad-faith refund exploitation rather than a genuine customer problem?",
+      "criteria": {
+        "false": "No deliberate fraud signal",
+        "true": "Deliberate fraud signal present"
+      }
+    }
+  }
+}

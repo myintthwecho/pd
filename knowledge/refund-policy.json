@@ -1,0 +1,200 @@
+{
+  "version": 1,
+  "source": "Synthetic refund policy records authored for A7. These are simplified platform policies, not a real merchant's legal policy.",
+  "records": [
+    {
+      "id": "POL-DAMAGED",
+      "title": "Damaged on arrival",
+      "tags": [
+        "damaged_on_arrival",
+        "photo_evidence",
+        "low_value"
+      ],
+      "applies_when": {
+        "claim_reasons": [
+          "damaged_on_arrival"
+        ],
+        "keywords": [
+          "damaged",
+          "broken",
+          "crushed",
+          "pieces",
+          "arrived in"
+        ],
+        "max_order_value": 500,
+        "max_days_since_delivery": 30
+      },
+      "policy": "If an item arrived damaged and the customer provides photo evidence, and the order value is at or below 500, approve the refund without manual review. If there is no evidence, or the order value is above 500, send the request to manual inspection."
+    },
+    {
+      "id": "POL-NONDELIVERY",
+      "title": "Non-delivery with stalled tracking",
+      "tags": [
+        "not_delivered",
+        "tracking",
+        "low_value"
+      ],
+      "applies_when": {
+        "claim_reasons": [
+          "not_delivered"
+        ],
+        "keywords": [
+          "tracking",
+          "not moved",
+          "never arrived",
+          "delayed",
+          "carrier",
+          "parcel",
+          "not received"
+        ],
+        "max_order_value": 500
+      },
+      "policy": "If the order was not delivered and tracking has not moved for at least 14 days, and the order value is at or below 500, approve the refund without manual review. If tracking shows the parcel was delivered or signed for, do not auto-approve; send the request to manual inspection or fraud review depending on the other signals."
+    },
+    {
+      "id": "POL-NOT-AS-DESCRIBED",
+      "title": "Low-value item not as described",
+      "tags": [
+        "not_as_described",
+        "photo_evidence",
+        "low_value"
+      ],
+      "applies_when": {
+        "claim_reasons": [
+          "not_as_described"
+        ],
+        "keywords": [
+          "wrong colour",
+          "wrong color",
+          "scratched",
+          "listing",
+          "does not match",
+          "not as described"
+        ],
+        "max_order_value": 500,
+        "max_days_since_delivery": 30
+      },
+      "policy": "For an order at or below 500 where the item does not match the listing (wrong colour, wrong size, damage not shown, or missing parts) and the customer provides photos, approve the refund without manual review. Above 500, or without evidence, use manual inspection."
+    },
+    {
+      "id": "POL-RETURN-WINDOW",
+      "title": "Change-of-mind return window",
+      "tags": [
+        "changed_mind",
+        "return_window",
+        "used_item"
+      ],
+      "applies_when": {
+        "claim_reasons": [
+          "changed_mind"
+        ],
+        "keywords": [
+          "changed my mind",
+          "wore",
+          "used",
+          "return"
+        ],
+        "max_days_since_delivery": 30
+      },
+      "policy": "A change-of-mind request is a normal return only when it is within 30 days of delivery and the item is unused. If the item has been used or the request is older than 30 days, send it to manual inspection instead of auto-approving."
+    },
+    {
+      "id": "POL-HIGH-VALUE",
+      "title": "High-value refund review",
+      "tags": [
+        "high_value",
+        "manual_review"
+      ],
+      "applies_when": {
+        "min_order_value": 500
+      },
+      "policy": "Any refund request with an order value above 500 must be reviewed manually, even when the claim looks genuine. The deterministic high-value guardrail enforces this: an auto-approval is overridden to manual inspection with reason HIGH_VALUE_OVERRIDE."
+    },
+    {
+      "id": "POL-REPEATED-REFUND",
+      "title": "Repeated refunds and contradictory tracking",
+      "tags": [
+        "fraud",
+        "repeated_refunds",
+        "contradictory_tracking"
+      ],
+      "applies_when": {
+        "keywords": [
+          "refund request",
+          "fourth",
+          "fifth",
+          "tracking says delivered",
+          "signed for",
+          "dispute",
+          "chargeback"
+        ],
+        "min_prior_refund_count_30d": 3
+      },
+      "policy": "Use FRAUD_RISK_FLAG when the narrative shows deliberate bad-faith exploitation: three or more refund requests in 30 days, tracking that contradicts the customer's claim, or a threat to dispute a delivered order. If the signals are weaker or ambiguous, use manual inspection instead."
+    },
+    {
+      "id": "POL-INCOMPLETE",
+      "title": "Incomplete or abusive claims",
+      "tags": [
+        "incomplete",
+        "abusive",
+        "manual_review"
+      ],
+      "applies_when": {
+        "claim_reasons": [
+          "other"
+        ],
+        "keywords": [
+          "no details",
+          "not giving",
+          "useless",
+          "complaining",
+          "no evidence",
+          "not waiting"
+        ],
+        "max_order_value": 500
+      },
+      "policy": "If the customer provides no verifiable detail, refuses to explain the problem, or uses abusive language, send the request to manual inspection. Do not auto-approve an unverifiable claim, and do not flag fraud unless there is evidence of deliberate exploitation."
+    },
+    {
+      "id": "POL-DUPLICATE",
+      "title": "Duplicate charge",
+      "tags": [
+        "duplicate_charge",
+        "billing_error",
+        "low_value"
+      ],
+      "applies_when": {
+        "claim_reasons": [
+          "duplicate_charge"
+        ],
+        "keywords": [
+          "charged twice",
+          "duplicate",
+          "two identical",
+          "double charge",
+          "two payments"
+        ],
+        "max_order_value": 500
+      },
+      "policy": "If the customer was charged twice for the same order and the duplicate is evidenced by the bank statement or confirmation emails, and the value is at or below 500, approve the refund of the duplicate charge without manual review. If the evidence is missing or the amount is high, use manual inspection."
+    },
+    {
+      "id": "POL-PII",
+      "title": "PII handling for claim text",
+      "tags": [
+        "privacy",
+        "pii"
+      ],
+      "applies_when": {
+        "keywords": [
+          "address",
+          "phone",
+          "card number",
+          "bank account"
+        ]
+      },
+      "policy": "Claim text may contain personal data. Redact names, addresses, phone numbers, email addresses, and payment details before sending the request to the model. Do not include PII in logs, screenshots, or the evaluation report."
+    }
+  ]
+}

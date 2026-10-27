@@ -1,0 +1,67 @@
+{
+  "model": "typesafe/jev-1.13",
+  "state": {
+    "request_id": "T10",
+    "order_id": "ORD-1006",
+    "order_value": 310,
+    "currency": "USD",
+    "days_since_delivery": 14,
+    "prior_refund_count_30d": 2,
+    "claim_reason": "other",
+    "claim_text": "I am not giving you any more details. You people are useless and I am not waiting any longer. Refund me now or I will keep complaining everywhere.",
+    "policy_context": [
+      {
+        "id": "POL-INCOMPLETE",
+        "title": "Incomplete or abusive claims",
+        "tags": [
+          "incomplete",
+          "abusive",
+          "manual_review"
+        ],
+        "applies_when": {
+          "claim_reasons": [
+            "other"
+          ],
+          "keywords": [
+            "no details",
+            "not giving",
+            "useless",
+            "complaining",
+            "no evidence",
+            "not waiting"
+          ],
+          "max_order_value": 500
+        },
+        "policy": "If the customer provides no verifiable detail, refuses to explain the problem, or uses abusive language, send the request to manual inspection. Do not auto-approve an unverifiable claim, and do not flag fraud unless there is evidence of deliberate exploitation.",
+        "score": 11,
+        "matched": [
+          "claim_reason:other",
+          "keyword:not giving",
+          "keyword:useless",
+          "keyword:complaining",
+          "keyword:not waiting",
+          "order_value<=500"
+        ]
+      }
+    ]
+  },
+  "questions": {
+    "refund_risk": {
+      "type": "choice",
+      "instructions": "Classify the refund request into exactly one risk decision. Prefer MANUAL_INSPECTION_REQUIRED when the claim is ambiguous, incomplete, high value, or lacks verifiable detail. Use FRAUD_RISK_FLAG only when the narrative shows deliberate bad-faith exploitation, such as repeated refunds, contradictory tracking evidence, or threats to dispute a delivered order.",
+      "criteria": {
+        "INSTANT_AUTO_APPROVE": "Genuine, low-risk claim that matches a normal refund policy; a refund can be issued without human review.",
+        "MANUAL_INSPECTION_REQUIRED": "Ambiguous, incomplete, high-value, or otherwise requires a human to inspect evidence before a refund decision.",
+        "FRAUD_RISK_FLAG": "Signals of deliberate bad-faith exploitation of the refund process rather than genuine dissatisfaction."
+      }
+    },
+    "fraud_signal": {
+      "type": "noul",
+      "instructions": "Does the claim show deliberate bad-faith refund exploitation rather than a genuine customer problem?",
+      "criteria": {
+        "false": "No deliberate fraud signal",
+        "true": "Deliberate fraud signal present"
+      }
+    }
+  }
+}

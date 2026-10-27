@@ -1,0 +1,81 @@
+{
+  "model": "typesafe/jev-1.13",
+  "state": {
+    "request_id": "T06",
+    "order_id": "ORD-1004",
+    "order_value": 2400,
+    "currency": "USD",
+    "days_since_delivery": 5,
+    "prior_refund_count_30d": 0,
+    "claim_reason": "not_as_described",
+    "claim_text": "The custom sofa does not match the fabric sample I approved. The colour is much darker and the stitching is uneven. For this price I expected the agreed specification, so I want a full refund.",
+    "policy_context": [
+      {
+        "id": "POL-NOT-AS-DESCRIBED",
+        "title": "Low-value item not as described",
+        "tags": [
+          "not_as_described",
+          "photo_evidence",
+          "low_value"
+        ],
+        "applies_when": {
+          "claim_reasons": [
+            "not_as_described"
+          ],
+          "keywords": [
+            "wrong colour",
+            "wrong color",
+            "scratched",
+            "listing",
+            "does not match",
+            "not as described"
+          ],
+          "max_order_value": 500,
+          "max_days_since_delivery": 30
+        },
+        "policy": "For an order at or below 500 where the item does not match the listing (wrong colour, wrong size, damage not shown, or missing parts) and the customer provides photos, approve the refund without manual review. Above 500, or without evidence, use manual inspection.",
+        "score": 8,
+        "matched": [
+          "claim_reason:not_as_described",
+          "keyword:does not match",
+          "days_since_delivery<=30"
+        ]
+      },
+      {
+        "id": "POL-HIGH-VALUE",
+        "title": "High-value refund review",
+        "tags": [
+          "high_value",
+          "manual_review"
+        ],
+        "applies_when": {
+          "min_order_value": 500
+        },
+        "policy": "Any refund request with an order value above 500 must be reviewed manually, even when the claim looks genuine. The deterministic high-value guardrail enforces this: an auto-approval is overridden to manual inspection with reason HIGH_VALUE_OVERRIDE.",
+        "score": 3,
+        "matched": [
+          "order_value>=500"
+        ]
+      }
+    ]
+  },
+  "questions": {
+    "refund_risk": {
+      "type": "choice",
+      "instructions": "Classify the refund request into exactly one risk decision. Prefer MANUAL_INSPECTION_REQUIRED when the claim is ambiguous, incomplete, high value, or lacks verifiable detail. Use FRAUD_RISK_FLAG only when the narrative shows deliberate bad-faith exploitation, such as repeated refunds, contradictory tracking evidence, or threats to dispute a delivered order.",
+      "criteria": {
+        "INSTANT_AUTO_APPROVE": "Genuine, low-risk claim that matches a normal refund policy; a refund can be issued without human review.",
+        "MANUAL_INSPECTION_REQUIRED": "Ambiguous, incomplete, high-value, or otherwise requires a human to inspect evidence before a refund decision.",
+        "FRAUD_RISK_FLAG": "Signals of deliberate bad-faith exploitation of the refund process rather than genuine dissatisfaction."
+      }
+    },
+    "fraud_signal": {
+      "type": "noul",
+      "instructions": "Does the claim show deliberate bad-faith refund exploitation rather than a genuine customer problem?",
+      "criteria": {
+        "false": "No deliberate fraud signal",
+        "true": "Deliberate fraud signal present"
+      }
+    }
+  }
+}

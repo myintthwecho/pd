@@ -1,12 +1,18 @@
 import type { DecisionTransport } from "./jevClient.ts";
 import { JEV_MODEL } from "./jevConfig.ts";
 import { POLICY, applyPolicy } from "./policy.ts";
-import type { FallbackReason, RiskResult } from "./types.ts";
+import type {
+  FallbackReason,
+  GroundedRefundRequest,
+  RetrievedPolicy,
+  RiskResult,
+} from "./types.ts";
 import { validateJevResponse, validateRefundRequest } from "./validate.ts";
 
 export interface ClassifyOptions {
   timeoutMs?: number;
   model?: string;
+  grounding?: RetrievedPolicy[];
 }
 
 export async function classifyRefund(
@@ -22,7 +28,10 @@ export async function classifyRefund(
     return fallbackResult(requestId, "INVALID_INPUT", model);
   }
 
-  const request = validation.value;
+  const request: GroundedRefundRequest =
+    options.grounding && options.grounding.length > 0
+      ? { ...validation.value, policy_context: options.grounding }
+      : validation.value;
   const timeoutMs = options.timeoutMs ?? POLICY.timeoutMs;
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);

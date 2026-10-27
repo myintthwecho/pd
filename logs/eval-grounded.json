@@ -1,0 +1,188 @@
+{
+  "version": "grounded",
+  "generated_at": "2026-10-27T07:45:22.418Z",
+  "git_sha": "91f73d1",
+  "config_sha": "ca35e777246cd817",
+  "cases_total": 10,
+  "cases_completed": 10,
+  "cases_pending": 0,
+  "correct": 10,
+  "accuracy_completed_pct": 100,
+  "accuracy_total_pct": 100,
+  "latency": {
+    "samples": 8,
+    "p50_ms": 695,
+    "p95_ms": 1052,
+    "source": "recorded"
+  },
+  "cost_per_task": "N/A",
+  "cost_notes": "The Jev Playground is free. Responses may include token usage, but the Playground does not expose per-request billing, so no cost estimate is reported.",
+  "results": [
+    {
+      "id": "T01",
+      "case_type": "normal",
+      "expected_decision": "INSTANT_AUTO_APPROVE",
+      "actual_decision": "INSTANT_AUTO_APPROVE",
+      "expected_fallback_reason": null,
+      "actual_fallback_reason": null,
+      "pass": true,
+      "fallback_check": true,
+      "status": "pass",
+      "evaluated_by": "policy_replay",
+      "latency_ms": 695,
+      "latency_source": "recorded",
+      "notes": [
+        "Grounded Playground T01. The Playground returned q1/q2 and a top-level confidence; raw_playground preserves that exact response. raw maps q1 to refund_risk, q2.probability to fraud_signal.noul, and confidence.q1 to refund_risk.confidence. Screenshot pending at docs/evidence/a7/T01-grounded.png. Usage: 940 input, 77 output tokens."
+      ]
+    },
+    {
+      "id": "T02",
+      "case_type": "normal",
+      "expected_decision": "INSTANT_AUTO_APPROVE",
+      "actual_decision": "INSTANT_AUTO_APPROVE",
+      "expected_fallback_reason": null,
+      "actual_fallback_reason": null,
+      "pass": true,
+      "fallback_check": true,
+      "status": "pass",
+      "evaluated_by": "policy_replay",
+      "latency_ms": 735,
+      "latency_source": "recorded",
+      "notes": [
+        "Grounded Playground T02. The Playground returned q1/q2 and a top-level confidence; raw_playground preserves that exact response. raw maps q1 to refund_risk, q2.probability to fraud_signal.noul, and confidence.q1 to refund_risk.confidence. Screenshot pending at docs/evidence/a7/T02-grounded.png. Usage: 914 input, 77 output tokens."
+      ]
+    },
+    {
+      "id": "T03",
+      "case_type": "normal",
+      "expected_decision": "INSTANT_AUTO_APPROVE",
+      "actual_decision": "INSTANT_AUTO_APPROVE",
+      "expected_fallback_reason": null,
+      "actual_fallback_reason": null,
+      "pass": true,
+      "fallback_check": true,
+      "status": "pass",
+      "evaluated_by": "policy_replay",
+      "latency_ms": 474,
+      "latency_source": "recorded",
+      "notes": [
+        "Grounded Playground T03. The Playground returned q1/q2 and a top-level confidence; raw_playground preserves that exact response. raw maps q1 to refund_risk, q2.probability to fraud_signal.noul, and confidence.q1 to refund_risk.confidence. Screenshot pending at docs/evidence/a7/T03-grounded.png. Usage: 962 input, 77 output tokens."
+      ]
+    },
+    {
+      "id": "T04",
+      "case_type": "edge",
+      "expected_decision": "INSTANT_AUTO_APPROVE",
+      "actual_decision": "INSTANT_AUTO_APPROVE",
+      "expected_fallback_reason": null,
+      "actual_fallback_reason": null,
+      "pass": true,
+      "fallback_check": true,
+      "status": "pass",
+      "evaluated_by": "policy_replay",
+      "latency_ms": 433,
+      "latency_source": "recorded",
+      "notes": [
+        "Grounded Playground T04. The Playground returned q1/q2 and a top-level confidence; raw_playground preserves that exact response. raw maps q1 to refund_risk, q2.probability to fraud_signal.noul, and confidence.q1 to refund_risk.confidence. Screenshot pending at docs/evidence/a7/T04-grounded.png. Usage: 948 input, 77 output tokens. The non-delivery policy record applies to the stalled tracking claim."
+      ]
+    },
+    {
+      "id": "T05",
+      "case_type": "edge",
+      "expected_decision": "MANUAL_INSPECTION_REQUIRED",
+      "actual_decision": "MANUAL_INSPECTION_REQUIRED",
+      "expected_fallback_reason": null,
+      "actual_fallback_reason": null,
+      "pass": true,
+      "fallback_check": true,
+      "status": "pass",
+      "evaluated_by": "policy_replay",
+      "latency_ms": 819,
+      "latency_source": "recorded",
+      "notes": [
+        "Grounded Playground T05. The Playground returned q1/q2 and a top-level confidence; raw_playground preserves that exact response. raw maps q1 to refund_risk, q2.probability to fraud_signal.noul, and confidence.q1 to refund_risk.confidence. Screenshot pending at docs/evidence/a7/T05-grounded.png. Usage: 894 input, 77 output tokens."
+      ]
+    },
+    {
+      "id": "T06",
+      "case_type": "edge",
+      "expected_decision": "MANUAL_INSPECTION_REQUIRED",
+      "actual_decision": "MANUAL_INSPECTION_REQUIRED",
+      "expected_fallback_reason": null,
+      "actual_fallback_reason": null,
+      "pass": true,
+      "fallback_check": true,
+      "status": "pass",
+      "evaluated_by": "policy_replay",
+      "latency_ms": 697,
+      "latency_source": "recorded",
+      "notes": [
+        "Grounded Playground T06. The Playground returned q1/q2 and a top-level confidence; raw_playground preserves that exact response. raw maps q1 to refund_risk, q2.probability to fraud_signal.noul, and confidence.q1 to refund_risk.confidence. Screenshot pending at docs/evidence/a7/T06-grounded.png. Usage: 1082 input, 77 output tokens."
+      ]
+    },
+    {
+      "id": "T07",
+      "case_type": "fallback",
+      "expected_decision": "MANUAL_INSPECTION_REQUIRED",
+      "actual_decision": "MANUAL_INSPECTION_REQUIRED",
+      "expected_fallback_reason": "INVALID_INPUT",
+      "actual_fallback_reason": "INVALID_INPUT",
+      "pass": true,
+      "fallback_check": true,
+      "status": "pass",
+      "evaluated_by": "deterministic_fallback",
+      "latency_ms": null,
+      "latency_source": "local_replay",
+      "notes": []
+    },
+    {
+      "id": "T08",
+      "case_type": "fallback",
+      "expected_decision": "MANUAL_INSPECTION_REQUIRED",
+      "actual_decision": "MANUAL_INSPECTION_REQUIRED",
+      "expected_fallback_reason": "TIMEOUT",
+      "actual_fallback_reason": "TIMEOUT",
+      "pass": true,
+      "fallback_check": true,
+      "status": "pass",
+      "evaluated_by": "deterministic_fallback",
+      "latency_ms": null,
+      "latency_source": "local_replay",
+      "notes": []
+    },
+    {
+      "id": "T09",
+      "case_type": "difficult",
+      "expected_decision": "FRAUD_RISK_FLAG",
+      "actual_decision": "FRAUD_RISK_FLAG",
+      "expected_fallback_reason": null,
+      "actual_fallback_reason": null,
+      "pass": true,
+      "fallback_check": true,
+      "status": "pass",
+      "evaluated_by": "policy_replay",
+      "latency_ms": 1052,
+      "latency_source": "recorded",
+      "notes": [
+        "Grounded Playground T09. The Playground returned q1/q2 and a top-level confidence; raw_playground preserves that exact response. raw maps q1 to refund_risk, q2.probability to fraud_signal.noul, and confidence.q1 to refund_risk.confidence. Screenshot pending at docs/evidence/a7/T09-grounded.png. Usage: 1174 input, 77 output tokens."
+      ]
+    },
+    {
+      "id": "T10",
+      "case_type": "difficult",
+      "expected_decision": "MANUAL_INSPECTION_REQUIRED",
+      "actual_decision": "MANUAL_INSPECTION_REQUIRED",
+      "expected_fallback_reason": null,
+      "actual_fallback_reason": null,
+      "pass": true,
+      "fallback_check": true,
+      "status": "pass",
+      "evaluated_by": "policy_replay",
+      "latency_ms": 676,
+      "latency_source": "recorded",
+      "notes": [
+        "Grounded Playground T10. The Playground returned q1/q2 and a top-level confidence; raw_playground preserves that exact response. raw maps q1 to refund_risk, q2.probability to fraud_signal.noul, and confidence.q1 to refund_risk.confidence. Screenshot pending at docs/evidence/a7/T10-grounded.png. Usage: 909 input, 77 output tokens."
+      ]
+    }
+  ]
+}

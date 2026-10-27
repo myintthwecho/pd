@@ -1,6 +1,8 @@
-import type { RefundRequest } from "./types.ts";
+import type { GroundedRefundRequest } from "./types.ts";
 
 export const JEV_MODEL = "typesafe/jev-1.13";
+
+export type DecisionState = GroundedRefundRequest;
 
 export const jevQuestions = {
   refund_risk: {
@@ -27,10 +29,16 @@ export const jevQuestions = {
   },
 } as const;
 
-export function buildJevRequest(request: RefundRequest) {
+export function buildJevRequest(request: DecisionState) {
+  const { policy_context: policyContext, ...baseState } = request;
+  const state =
+    policyContext && policyContext.length > 0
+      ? { ...baseState, policy_context: policyContext }
+      : baseState;
+
   return {
     model: JEV_MODEL,
-    state: request,
+    state,
     questions: jevQuestions,
   };
 }

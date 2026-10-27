@@ -48,6 +48,36 @@ The demo uses mocked Jev responses, so it does **not** call the model and does n
 
 The assignment uses the **Jev Playground**. The six cases in `docs/playground-runbook.md` have been run and the results are recorded there and in `A6_submission.md` Section 2. Optional screenshots belong in `docs/evidence/`.
 
+## A7 evaluation (Week 09)
+
+A7 evaluates the A6 classifier with a 10-case dataset and one improvement: retrieved policy grounding.
+
+| Path | Purpose |
+|---|---|
+| `knowledge/refund-policy.json` | Synthetic refund policy records used for grounding |
+| `src/retrieval.ts` | Deterministic top-3 policy retrieval |
+| `eval-cases.json` | 10 preregistered evaluation cases |
+| `scripts/evaluate.ts` | Replay/live evaluation harness |
+| `eval/recorded/baseline.json` | Actual baseline responses (A6 + new runs) |
+| `eval/recorded/grounded.json` | Actual grounded responses (complete) |
+| `eval/payloads/` | Paste-ready Playground payloads |
+| `logs/eval-*.json` | Generated evaluation summaries |
+| `docs/a7-runbook.md` | Playground capture procedure |
+| `A7_6731503069.md` | A7 submission report |
+
+Commands:
+
+```bash
+npm run eval:check            # validate dataset and recorded-file completeness
+npm run eval:print:baseline   # write baseline Playground payloads
+npm run eval:print:grounded   # write grounded Playground payloads
+npm run eval:baseline         # score the baseline recordings
+npm run eval:grounded         # score the grounded recordings
+npm run eval:compare          # write logs/eval-comparison.md
+```
+
+The baseline reuses the six actual A6 Playground outputs and adds new T02/T03 runs; it is complete at 7/10 (T02, T03 and T04 misses). The grounded arm requires eight new Playground runs because the model input changes; all eight are captured and the grounded result is complete at 10/10. Both arms are scored through the same validation, guardrail, and fallback layer.
+
 ## Optional production wiring
 
 `src/jevClient.ts` includes an HTTP transport. To use it, set the endpoint and key in server-side environment variables:

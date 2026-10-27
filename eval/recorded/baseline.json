@@ -1,0 +1,302 @@
+{
+  "version": "baseline",
+  "model": "typesafe/jev-1.13",
+  "captured_at": "2026-10-27T14:04:22.158Z",
+  "notes": "T01, T04, T05, T06, T09 and T10 reuse the actual A6 Playground recordings in docs/playground-runbook.md. A6 did not capture the Playground confidence field, so final_decision is the recorded A6 decision after the A6 guardrails and is reused with evaluated_by=recorded_final. T02 and T03 are new baseline Playground runs; their q1/q2 responses are preserved in raw_playground and normalized to refund_risk/fraud_signal for replay. T07 and T08 are deterministic fault-injection cases and do not need model output.",
+  "cases": {
+    "T01": {
+      "source": "A6 T1",
+      "captured_at": "A6 Playground run",
+      "raw": {
+        "answers": {
+          "refund_risk": {
+            "choice": "INSTANT_AUTO_APPROVE",
+            "probabilities": {
+              "INSTANT_AUTO_APPROVE": 0.81,
+              "MANUAL_INSPECTION_REQUIRED": 0.18,
+              "FRAUD_RISK_FLAG": 0.01
+            },
+            "confidence": null
+          },
+          "fraud_signal": {
+            "noul": 0.05
+          }
+        }
+      },
+      "final_decision": "INSTANT_AUTO_APPROVE",
+      "confidence_captured": false,
+      "latency_ms": 753,
+      "notes": "Actual A6 Playground output; confidence was not captured."
+    },
+    "T02": {
+      "source": "Playground baseline T02",
+      "captured_at": "2026-10-27T13:59:51.396Z",
+      "raw": {
+        "answers": {
+          "refund_risk": {
+            "type": "choice",
+            "choice": "MANUAL_INSPECTION_REQUIRED",
+            "probabilities": {
+              "INSTANT_AUTO_APPROVE": 0.08,
+              "MANUAL_INSPECTION_REQUIRED": 0.92,
+              "FRAUD_RISK_FLAG": 0
+            },
+            "confidence": 0.88
+          },
+          "fraud_signal": {
+            "type": "noul",
+            "noul": 0.11
+          }
+        },
+        "usage": {
+          "inputTokens": 647,
+          "outputTokens": 77,
+          "totalTokens": 724
+        },
+        "rounding": {
+          "probabilityDecimals": 2,
+          "scoreDecimals": 2
+        },
+        "warnings": []
+      },
+      "raw_playground": {
+        "answers": {
+          "q1": {
+            "type": "choice",
+            "choice": "MANUAL_INSPECTION_REQUIRED",
+            "probabilities": {
+              "INSTANT_AUTO_APPROVE": 0.08,
+              "MANUAL_INSPECTION_REQUIRED": 0.92,
+              "FRAUD_RISK_FLAG": 0
+            }
+          },
+          "q2": {
+            "type": "boolean",
+            "probability": 0.11
+          }
+        },
+        "usage": {
+          "inputTokens": 647,
+          "outputTokens": 77,
+          "totalTokens": 724
+        },
+        "rounding": {
+          "probabilityDecimals": 2,
+          "scoreDecimals": 2
+        },
+        "confidence": {
+          "q1": 0.88
+        },
+        "warnings": []
+      },
+      "final_decision": null,
+      "confidence_captured": true,
+      "latency_ms": 653,
+      "notes": "Baseline Playground T02. The Playground returned q1/q2 and a top-level confidence; raw_playground preserves that exact response. raw maps q1 to refund_risk, q2.probability to fraud_signal.noul, and confidence.q1 to refund_risk.confidence. Screenshot pending at docs/evidence/a7/T02-baseline.png. Usage: 647 input, 77 output tokens."
+    },
+    "T03": {
+      "source": "Playground baseline T03",
+      "captured_at": "2026-10-27T14:04:22.158Z",
+      "raw": {
+        "answers": {
+          "refund_risk": {
+            "type": "choice",
+            "choice": "MANUAL_INSPECTION_REQUIRED",
+            "probabilities": {
+              "INSTANT_AUTO_APPROVE": 0.41,
+              "MANUAL_INSPECTION_REQUIRED": 0.59,
+              "FRAUD_RISK_FLAG": 0
+            },
+            "confidence": 0.38
+          },
+          "fraud_signal": {
+            "type": "noul",
+            "noul": 0.09
+          }
+        },
+        "usage": {
+          "inputTokens": 677,
+          "outputTokens": 77,
+          "totalTokens": 754
+        },
+        "rounding": {
+          "probabilityDecimals": 2,
+          "scoreDecimals": 2
+        },
+        "warnings": []
+      },
+      "raw_playground": {
+        "answers": {
+          "q1": {
+            "type": "choice",
+            "choice": "MANUAL_INSPECTION_REQUIRED",
+            "probabilities": {
+              "INSTANT_AUTO_APPROVE": 0.41,
+              "MANUAL_INSPECTION_REQUIRED": 0.59,
+              "FRAUD_RISK_FLAG": 0
+            }
+          },
+          "q2": {
+            "type": "boolean",
+            "probability": 0.09
+          }
+        },
+        "usage": {
+          "inputTokens": 677,
+          "outputTokens": 77,
+          "totalTokens": 754
+        },
+        "rounding": {
+          "probabilityDecimals": 2,
+          "scoreDecimals": 2
+        },
+        "confidence": {
+          "q1": 0.38
+        },
+        "warnings": []
+      },
+      "final_decision": null,
+      "confidence_captured": true,
+      "latency_ms": 430,
+      "notes": "Baseline Playground T03. The Playground returned q1/q2 and a top-level confidence; raw_playground preserves that exact response. raw maps q1 to refund_risk, q2.probability to fraud_signal.noul, and confidence.q1 to refund_risk.confidence. Screenshot pending at docs/evidence/a7/T03-baseline.png. Usage: 677 input, 77 output tokens."
+    },
+    "T04": {
+      "source": "A6 T2",
+      "captured_at": "A6 Playground run",
+      "raw": {
+        "answers": {
+          "refund_risk": {
+            "choice": "MANUAL_INSPECTION_REQUIRED",
+            "probabilities": {
+              "INSTANT_AUTO_APPROVE": 0.43,
+              "MANUAL_INSPECTION_REQUIRED": 0.56,
+              "FRAUD_RISK_FLAG": 0.01
+            },
+            "confidence": null
+          },
+          "fraud_signal": {
+            "noul": 0.07
+          }
+        }
+      },
+      "final_decision": "MANUAL_INSPECTION_REQUIRED",
+      "confidence_captured": false,
+      "latency_ms": 444,
+      "notes": "Actual A6 Playground output; the only A6 mismatch. Confidence was not captured."
+    },
+    "T05": {
+      "source": "A6 T3",
+      "captured_at": "A6 Playground run",
+      "raw": {
+        "answers": {
+          "refund_risk": {
+            "choice": "MANUAL_INSPECTION_REQUIRED",
+            "probabilities": {
+              "INSTANT_AUTO_APPROVE": 0.48,
+              "MANUAL_INSPECTION_REQUIRED": 0.51,
+              "FRAUD_RISK_FLAG": 0.01
+            },
+            "confidence": null
+          },
+          "fraud_signal": {
+            "noul": 0.08
+          }
+        }
+      },
+      "final_decision": "MANUAL_INSPECTION_REQUIRED",
+      "confidence_captured": false,
+      "latency_ms": 467,
+      "notes": "Actual A6 Playground output; confidence was not captured."
+    },
+    "T06": {
+      "source": "A6 T4",
+      "captured_at": "A6 Playground run",
+      "raw": {
+        "answers": {
+          "refund_risk": {
+            "choice": "MANUAL_INSPECTION_REQUIRED",
+            "probabilities": {
+              "INSTANT_AUTO_APPROVE": 0.05,
+              "MANUAL_INSPECTION_REQUIRED": 0.95,
+              "FRAUD_RISK_FLAG": 0
+            },
+            "confidence": null
+          },
+          "fraud_signal": {
+            "noul": 0.08
+          }
+        }
+      },
+      "final_decision": "MANUAL_INSPECTION_REQUIRED",
+      "confidence_captured": false,
+      "latency_ms": 425,
+      "notes": "Actual A6 Playground output; confidence was not captured. The high-value guardrail was available but not needed because the raw choice was already manual."
+    },
+    "T07": {
+      "source": "Deterministic fallback",
+      "captured_at": null,
+      "raw": null,
+      "final_decision": "MANUAL_INSPECTION_REQUIRED",
+      "confidence_captured": false,
+      "latency_ms": null,
+      "notes": "Fault injection; no Playground run needed."
+    },
+    "T08": {
+      "source": "Deterministic fallback",
+      "captured_at": null,
+      "raw": null,
+      "final_decision": "MANUAL_INSPECTION_REQUIRED",
+      "confidence_captured": false,
+      "latency_ms": null,
+      "notes": "Fault injection; no Playground run needed."
+    },
+    "T09": {
+      "source": "A6 T5",
+      "captured_at": "A6 Playground run",
+      "raw": {
+        "answers": {
+          "refund_risk": {
+            "choice": "FRAUD_RISK_FLAG",
+            "probabilities": {
+              "INSTANT_AUTO_APPROVE": 0,
+              "MANUAL_INSPECTION_REQUIRED": 0.11,
+              "FRAUD_RISK_FLAG": 0.89
+            },
+            "confidence": null
+          },
+          "fraud_signal": {
+            "noul": 0.56
+          }
+        }
+      },
+      "final_decision": "FRAUD_RISK_FLAG",
+      "confidence_captured": false,
+      "latency_ms": 671,
+      "notes": "Actual A6 Playground output; confidence was not captured."
+    },
+    "T10": {
+      "source": "A6 T6",
+      "captured_at": "A6 Playground run",
+      "raw": {
+        "answers": {
+          "refund_risk": {
+            "choice": "MANUAL_INSPECTION_REQUIRED",
+            "probabilities": {
+              "INSTANT_AUTO_APPROVE": 0.34,
+              "MANUAL_INSPECTION_REQUIRED": 0.58,
+              "FRAUD_RISK_FLAG": 0.08
+            },
+            "confidence": null
+          },
+          "fraud_signal": {
+            "noul": 0.31
+          }
+        }
+      },
+      "final_decision": "MANUAL_INSPECTION_REQUIRED",
+      "confidence_captured": false,
+      "latency_ms": 621,
+      "notes": "Actual A6 Playground output; confidence was not captured."
+    }
+  }
+}

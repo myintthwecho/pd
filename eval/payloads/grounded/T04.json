@@ -1,0 +1,69 @@
+{
+  "model": "typesafe/jev-1.13",
+  "state": {
+    "request_id": "T04",
+    "order_id": "ORD-1002",
+    "order_value": 65,
+    "currency": "USD",
+    "days_since_delivery": null,
+    "prior_refund_count_30d": 0,
+    "claim_reason": "not_delivered",
+    "claim_text": "The tracking page has not moved for 21 days and the carrier says the parcel is delayed. The order never arrived and I still need it. Please refund me so I can order again.",
+    "policy_context": [
+      {
+        "id": "POL-NONDELIVERY",
+        "title": "Non-delivery with stalled tracking",
+        "tags": [
+          "not_delivered",
+          "tracking",
+          "low_value"
+        ],
+        "applies_when": {
+          "claim_reasons": [
+            "not_delivered"
+          ],
+          "keywords": [
+            "tracking",
+            "not moved",
+            "never arrived",
+            "delayed",
+            "carrier",
+            "parcel",
+            "not received"
+          ],
+          "max_order_value": 500
+        },
+        "policy": "If the order was not delivered and tracking has not moved for at least 14 days, and the order value is at or below 500, approve the refund without manual review. If tracking shows the parcel was delivered or signed for, do not auto-approve; send the request to manual inspection or fraud review depending on the other signals.",
+        "score": 12,
+        "matched": [
+          "claim_reason:not_delivered",
+          "keyword:tracking",
+          "keyword:not moved",
+          "keyword:never arrived",
+          "keyword:delayed",
+          "keyword:carrier",
+          "order_value<=500"
+        ]
+      }
+    ]
+  },
+  "questions": {
+    "refund_risk": {
+      "type": "choice",
+      "instructions": "Classify the refund request into exactly one risk decision. Prefer MANUAL_INSPECTION_REQUIRED when the claim is ambiguous, incomplete, high value, or lacks verifiable detail. Use FRAUD_RISK_FLAG only when the narrative shows deliberate bad-faith exploitation, such as repeated refunds, contradictory tracking evidence, or threats to dispute a delivered order.",
+      "criteria": {
+        "INSTANT_AUTO_APPROVE": "Genuine, low-risk claim that matches a normal refund policy; a refund can be issued without human review.",
+        "MANUAL_INSPECTION_REQUIRED": "Ambiguous, incomplete, high-value, or otherwise requires a human to inspect evidence before a refund decision.",
+        "FRAUD_RISK_FLAG": "Signals of deliberate bad-faith exploitation of the refund process rather than genuine dissatisfaction."
+      }
+    },
+    "fraud_signal": {
+      "type": "noul",
+      "instructions": "Does the claim show deliberate bad-faith refund exploitation rather than a genuine customer problem?",
+      "criteria": {
+        "false": "No deliberate fraud signal",
+        "true": "Deliberate fraud signal present"
+      }
+    }
+  }
+}

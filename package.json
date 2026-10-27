@@ -6,8 +6,14 @@
   "description": "A6: Refund Request Risk Classifier built on a typed Jev decision",
   "scripts": {
     "demo": "node src/fallbackDemo.ts",
-    "test": "node --test test/classifyRefund.test.ts",
-    "typecheck": "tsc --noEmit"
+    "test": "node --test test/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "eval:check": "node scripts/evaluate.ts --validate-only",
+    "eval:print:baseline": "node scripts/evaluate.ts --print-state --version baseline",
+    "eval:print:grounded": "node scripts/evaluate.ts --print-state --version grounded",
+    "eval:baseline": "node scripts/evaluate.ts --version baseline",
+    "eval:grounded": "node scripts/evaluate.ts --version grounded",
+    "eval:compare": "node scripts/compare.ts"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
